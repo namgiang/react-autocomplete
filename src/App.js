@@ -1,40 +1,50 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux';
 import './App.css';
 
-import MovieService from './services/movies'
+import MovieService from './services/movies';
+import { setSearchResult } from './services/actions';
+
+let createHandlers = function(dispatch) {
+  let onSearchTermChanged = function(event) {
+    MovieService.search(event.target.value)
+    .then(response => {
+      console.log(response);
+      dispatch(setSearchResult(response.results));
+    });
+  };
+  
+  return {
+    onSearchTermChanged
+  };
+}
 
 class App extends Component {
   constructor(props: any) {
     super(props);
-    this.state = {
-      value: '',
-      searchResult: []
-    };
 
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({
-      value: event.target.value,
-      searchResult: MovieService.search(event.target.value)
-    });
+    this.handlers = createHandlers(this.props.dispatch);
   }
 
   render() {
-    console.log(this.state.searchResult);
+    console.log(this.props.searchResult);
     return (
       <div className="App">
         <div className="search-component">
           <input type="text" 
                  name="search"
                  value={this.state.value} 
-                 onChange={this.handleChange} />
+                 onChange={this.handlers.onSearchTermChanged} />
         </div>
       </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    searchResult: state.app.searchResult
+  };
+}
+
+export default connect(mapStateToProps)(App);
