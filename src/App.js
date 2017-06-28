@@ -3,16 +3,30 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      value: ''
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({
+      value: event.target.value
+    });
+  }
+
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+        <div className="search-component">
+          <input type="text" 
+                 name="search"
+                 value={this.state.value} 
+                 onChange={this.handleChange} />
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
       </div>
     );
   }
