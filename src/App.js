@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import MovieService from './services/movies'
+
 class App extends Component {
   constructor(props: any) {
     super(props);
     this.state = {
-      value: ''
+      value: '',
+      searchResult: []
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -14,11 +17,13 @@ class App extends Component {
 
   handleChange(event) {
     this.setState({
-      value: event.target.value
+      value: event.target.value,
+      searchResult: MovieService.search(event.target.value)
     });
   }
 
   render() {
+    console.log(this.state.searchResult);
     return (
       <div className="App">
         <div className="search-component">
