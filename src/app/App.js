@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './App.css';
 
-import { fetchSearchResult } from './services/actions';
+import { fetchSearchResult } from '../services/actions';
 
 let createHandlers = function(dispatch) {
-  let onSearchTermChanged = function(event) {
-    dispatch(fetchSearchResult(event.target.value));
-  };
+  let onSearchTermChanged = event => dispatch(fetchSearchResult(event.target.value));
   
   return {
     onSearchTermChanged
@@ -34,7 +32,8 @@ class App extends Component {
         <div className="search-component">
           <input type="text" 
                  name="search"
-                 list="search-result" 
+                 list="search-result"
+                 placeholder="Search movies by title"
                  onChange={this.handlers.onSearchTermChanged} />
           <datalist id="search-result">
             { resultDivs }

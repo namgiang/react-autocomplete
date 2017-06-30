@@ -1,3 +1,4 @@
+/* define actions */
 export const SET_SEARCH_RESULT = 'SET_SEARCH_RESULT';
 export const FETCH_SEARCH_RESULT = 'FETCH_SEARCH_RESULT';
 export const FETCH_SEARCH_REJECTED = 'FETCH_SEARCH_REJECTED';

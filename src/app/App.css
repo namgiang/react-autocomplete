@@ -9,8 +9,7 @@
 }
 
 input {
-  -moz-box-sizing: border-box;
-  background: url('./assets/img/search.svg') no-repeat scroll -1vw;
+  background: url('../assets/img/search.svg') no-repeat scroll -1vw;
   background-position: right;
   border: 1px solid rgba(68, 135, 219, .4);
   border-radius: 8px;

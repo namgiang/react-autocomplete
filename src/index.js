@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from './app/App';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
+/* create a store with epicMiddleware */
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import autoCompleteApp from './reducers';
