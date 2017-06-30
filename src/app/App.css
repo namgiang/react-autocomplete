@@ -8,7 +8,7 @@
   position: relative;  
 }
 
-input {
+.search-component--input {
   background: url('../assets/img/search.svg') no-repeat scroll -1vw;
   background-position: right;
   border: 1px solid rgba(68, 135, 219, .4);
@@ -20,20 +20,20 @@ input {
   width: 60vw;  
 }
 
-input:active,
-input:focus {
+.search-component--input:active,
+.search-component--input:focus {
   border-radius: 8px;
   outline: 0 none;
 }
 
-input::-webkit-calendar-picker-indicator {
+input:-webkit-calendar-picker-indicator {
   display: none;
 }
 
 
 @media only screen and (min-width: 800px) {
-  input {
-    font-size: 1.5em;
+  .search-component--input {
+    font-size: 1.5rem;
     height: 100%;
     padding: 1vw 3.5vw 1vw 1vw;
     width: 30vw;

@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import debounce from 'lodash/debounce';
 import './App.css';
 
 import { fetchSearchResult } from '../services/actions';
 
 let createHandlers = function(dispatch) {
-  let onSearchTermChanged = event => dispatch(fetchSearchResult(event.target.value));
-  
+  let onSearchTermChanged = e => {
+    dispatch(fetchSearchResult(e.target.value));
+  }
+
   return {
     onSearchTermChanged
   };
@@ -15,7 +19,11 @@ let createHandlers = function(dispatch) {
 class App extends Component {
   constructor(props: any) {
     super(props);
-    this.handlers = createHandlers(this.props.dispatch);
+    let handlers = createHandlers(this.props.dispatch);
+    this.onTermChangedHandler = compose(
+      debounce(handlers.onSearchTermChanged, 250),
+      e => e.persist() || e
+    );
   }
 
   componentDidMount() {
@@ -26,20 +34,20 @@ class App extends Component {
     const resultDivs = (typeof this.props.searchResult !== 'undefined') 
                        ? this.props.searchResult.map((title, index) => (<option value={ title } key={index}>{ title }</option>))
                        : [];
-
     return (
-      <div className="App">
+      <section className="App">
         <div className="search-component">
           <input type="text" 
                  name="search"
                  list="search-result"
+                 className="search-component--input"
                  placeholder="Search movies by title"
-                 onChange={this.handlers.onSearchTermChanged} />
+                 onChange={this.onTermChangedHandler} />
           <datalist id="search-result">
             { resultDivs }
           </datalist>               
         </div>
-      </div>
+      </section>
     );
   }
 }
