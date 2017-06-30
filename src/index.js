@@ -5,19 +5,16 @@ import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import autoCompleteApp from './reducers';
-import rootEpic from './epic';
+import rootEpic from './epics';
 import { createEpicMiddleware } from 'redux-observable';
 
 const epicMiddleware = createEpicMiddleware(rootEpic);
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
 	autoCompleteApp,
   applyMiddleware(epicMiddleware)
 );
-
-console.log(store);
 
 ReactDOM.render(
 	<Provider store={store}>
